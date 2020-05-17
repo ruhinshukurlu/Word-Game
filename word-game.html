@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body class="full">
+
+    <div class="container">
+        <div class="name">
+            <h1>Word Game</h1>
+        </div>
+        <div class="start-block">
+            <span id="time">Time : 0</span>
+            <span id="score">Score : 0</span>
+            <button id="startBtn">Start</button>
+        </div>
+        <div id="main-block">
+            <div class="instruction-block">
+                <span>Instruction</span>
+                <ul class="instruction-details">
+                    
+                    <h3 class="instruction-text-heading-1">
+                      How To Play
+                    </h3>
+                    <li>
+                      Click the start button to begin
+                    </li>
+                    <li>
+                      Find as many words as you can
+                    </li>
+                  </ul>
+            </div>
+            <div class="word-block">
+                <div id="overlay"></div>
+                <div class="word"></div>
+                <div class="letter-box"></div>
+            </div>
+            <div class="information-block">
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
