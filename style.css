@@ -22,6 +22,7 @@
 #main-block{
     position: relative;
     display: flex;
+    justify-content: center;
     margin: 30px;
     border-radius: 5px;
     padding: 10px;
@@ -76,7 +77,7 @@ button:disabled{
 }
 
 .information-box{
-    margin-left: 10px;
+    margin-top: 10px;
     border: 2px solid #ccc;
     border-radius: 5px;
     padding: 5px;
@@ -93,10 +94,22 @@ button:disabled{
 }
 
 .information-block, .instruction-block{
-    width: 40%;
+    width: 300px;
     color: #fff;
     border-radius: 5px;
     padding: 5px;
+}
+
+.instruction-block{
+    height: fit-content;
+    width: 330px;
+    background-color: rgba(0,0,0);
+    padding: 10px;
+}
+
+.instruction-details li{
+    margin-bottom: 8px;
+    list-style-type: circle;
 }
 
 .start-block{
@@ -113,7 +126,8 @@ button:disabled{
     color: #fff;
 }
 
-#startBtn{
+#startBtn, #change-word-btn,#review-word{
+    margin: 5px;
     width: 150px;
     height: 40px;
     cursor: pointer;
@@ -121,6 +135,7 @@ button:disabled{
 
 .word-block{
     position: relative;
+    width: 80%;
 }
 
 #overlay{
@@ -129,8 +144,29 @@ button:disabled{
     height: 100%;
     top: 0;
     left: 0;
+    z-index: 2;
 }
 
 .z-index{
-    z-index: -1;
+    z-index: -1 !important;
+}
+
+#time, #score{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #979797;
+}
+
+#score{
+    width: 90px;
+    height: 60px;
+    margin-left: 70px;
+}
+
+.instruction-details {
+    font-size: 17px;
 }

@@ -15,33 +15,39 @@
             <h1>Word Game</h1>
         </div>
         <div class="start-block">
-            <span id="time">Time : 0</span>
-            <span id="score">Score : 0</span>
+            <span id="time">Time </span>
+            <span id="score">Score </span>
             <button id="startBtn">Start</button>
         </div>
         <div id="main-block">
+            <div id="overlay"></div>
             <div class="instruction-block">
-                <span>Instruction</span>
                 <ul class="instruction-details">
-                    
-                    <h3 class="instruction-text-heading-1">
+                    <h3>
                       How To Play
                     </h3>
                     <li>
-                      Click the start button to begin
+                        <p>Click the start button to begin</p>
                     </li>
                     <li>
-                      Find as many words as you can
+                        <p>Find as many words as you can</p>
+                    </li>
+                    <li>
+                        <p>You have only 30 seconds for each word.</p>
+                    </li>
+                    <li>
+                        <p>If you want to change the word, click the "Next Word" button</p>
                     </li>
                   </ul>
             </div>
             <div class="word-block">
-                <div id="overlay"></div>
                 <div class="word"></div>
                 <div class="letter-box"></div>
             </div>
             <div class="information-block">
-
+                <button id="change-word-btn">Next Word</button>
+                <button id="review-word">Hint...</button>
+                <div class="information-box" style="display: none;"></div>
             </div>
 
         </div>

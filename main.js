@@ -1,53 +1,3 @@
-// var body = document.getElementsByTagtitle('body')[0];
-// var main_block = document.createElement('div');
-// main_block.setAttribute('class','main-box');
-// body.appendChild(main_block);
-
-var main_block = document.getElementById('main-block')
-
-var word_box = document.getElementsByClassName('word')[0]
-// word_box.setAttribute('class','word-box');
-// word_box.style = "display : flex; margin-bottom : 10px;";
-// main_block.appendChild(word_box);
-
-// var score_box = document.createElement('div');
-// score_box.setAttribute('class','score-block');
-// main_block.appendChild(score_box);
-
-
-var found_letters = [];
-var checked_letters = [];
-var score = 10;
-var score_text = document.getElementById('score')
-score_text.innerText = `Score : ${score}`;
-
-var letter_box = document.getElementsByClassName('letter-box')[0]
-// letter_box.setAttribute('class','letter-box');
-// main_block.appendChild(letter_box);
-
-var change_word_btn = document.createElement('button');
-change_word_btn.innerText = 'Change word';
-change_word_btn.style = 'margin : 5px; padding : 5px';
-// main_block.appendChild(change_word_btn);
-
-
-
-
-function generateRandomNumbers(){
-    var rand_num_list = [];
-    var randomNumber = Math.floor(Math.random()*6);
-    rand_num_list.push(randomNumber);
-    var new_randomNumber = Math.floor(Math.random()*6);
-    console.log(new_randomNumber);
-    if(rand_num_list.indexOf(new_randomNumber) == -1){
-        rand_num_list.push(new_randomNumber);
-        return new_randomNumber;
-    }
-    else{
-        return randomNumber;
-    }
-}
-
 
 var words = [
     {title : 'buenos aires', info : 'Capital city of Argentina'},
@@ -73,6 +23,60 @@ var words = [
     {title : 'caracas', info : 'Capital city of Venezuela'},
     {title : 'hanoi', info : 'Capital city of Vietnam'},
 ];
+
+var main_block = document.getElementById('main-block')
+
+var word_box = document.getElementsByClassName('word')[0]
+
+
+var found_letters = [];
+var checked_letters = [];
+var score = 10;
+var score_text = document.getElementById('score')
+score_text.innerText = `Score : ${score}`;
+
+var letter_box = document.getElementsByClassName('letter-box')[0]
+var change_word_btn = document.getElementById('change-word-btn');
+
+var id; 
+function generateTimer() {
+    var timer = 30;
+    var time_block = document.getElementById('time')
+    time_block.style.backgroundColor = '#4AFF01'
+    id = setInterval( time,1000 );
+    console.log('ok')
+    function time() {
+        time_block.innerText = `Time  ${timer}`
+        timer--
+        if (timer == 10) {
+            time_block.style.backgroundColor = '#FF0101'
+        }
+        if (timer == 0) {
+            clearInterval(id)
+            console.log('Game over :( ')
+        }
+    }
+    
+}
+
+
+function generateRandomNumbers(){
+    var rand_num_list = [];
+    var randomNumber = Math.floor(Math.random()*6);
+    rand_num_list.push(randomNumber);
+    var new_randomNumber = Math.floor(Math.random()*6);
+    console.log(new_randomNumber);
+    if(rand_num_list.indexOf(new_randomNumber) == -1){
+        rand_num_list.push(new_randomNumber);
+        return new_randomNumber;
+    }
+    else{
+        return randomNumber;
+    }
+}
+
+
+
 
 var iterete = 0;
 var letter_btn = document.createElement('button');
@@ -101,7 +105,7 @@ function generateLetter_btns(word){
             this.disabled = true;
             score--;
             score_text.innerText = `Score : ${score}`;
-            // score_box.innerHTML = `<p>Found letters : ${found_letters}</p></br><p>Checked letters : ${checked_letters}</p></br><p>Your score : ${score}</p>`;
+            
         }
 
         // function for keyboard
@@ -129,16 +133,11 @@ function generateLetter_btns(word){
                 }
                 score--;
                 score_text.innerText = `Score : ${score}`;
-                // score_box.innerHTML = `<p>Found letters : ${found_letters}</p></br><p>Checked letters : ${checked_letters}</p></br><p>Your score : ${score}</p>`;
             }
         }
         letter_box.appendChild(letter_btn);
     }
-    var information = document.createElement('div');
-    var information_block = document.getElementsByClassName('information-block')[0]
-    information.innerHTML = `<spanp>You have to find ${word.length} letter word which is ${words[iterete].info}</span>`;
-    information.setAttribute('class','information-box');
-    information_block.appendChild(information);  
+      
 }
 generateLetter_btns(words[0].title);
 
@@ -159,20 +158,29 @@ function generateLetterBox(word){
 }
 generateLetterBox(words[0].title);
 
+function generateInformationBox( word ){
+    var information_block = document.getElementsByClassName('information-box')[0]
+    information_block.innerHTML = `<spanp>You have to find ${word.title.length} letter word which is ${word.info}</span>`;
+    
+}
+
 var startBtn = document.getElementById('startBtn');
 
 startBtn.onclick = function( ) {
+    generateTimer();
+    generateInformationBox( words[0] )
     document.getElementById('overlay').classList.add('z-index')
     var buttons  = letter_box.querySelectorAll('button')
-    for (const button of buttons) {
+    var letters = word_box.querySelectorAll('div')
+    for ( button of buttons) {
         button.style.boxShadow = '0px 0px 17px 4px rgba(255,255,255,0.67)';
         button.style.margin = '6px';
         button.style.transition = '.4s';
     }
 
-    var letters = word_box.querySelectorAll('div')
+    
     console.log(letters)
-    for (const letter of letters) {
+    for ( letter of letters) {
         letter.style.margin = '3px'
         letter.style.transition = '.4s'
     }
@@ -181,17 +189,58 @@ startBtn.onclick = function( ) {
 
 var count = 1;
 change_word_btn.onclick = function (){
-    var num = generateRandomNumbers();
-    // console.log(num);
+    clearInterval(id)
+    generateTimer();
+    generateInformationBox( words[count] )
+    document.getElementById('overlay').classList.add('z-index')
+    
     var new_word = words[count].title;
     iterete++;
     word_box.innerHTML = '';
     generateLetterBox(new_word); 
     letter_box.innerHTML = '';
     generateLetter_btns(new_word);
-    score_box.innerHTML = '';
     found_letters = [];
     checked_letters = [];
+
     score = 10;
+    score_text.innerText = `Score : ${score}`;
+
     count++;
+    var buttons  = letter_box.querySelectorAll('button')
+    var letters = word_box.querySelectorAll('div')
+
+    for ( button of buttons) {
+        button.style.boxShadow = 'unset';
+        button.style.margin = '3px';
+        button.style.transition = '.4s';
+    }
+    for ( letter of letters) {
+        letter.style.margin = '-5px'
+        letter.style.transition = '.4s'
+    }
+
+    setTimeout(function(){
+        for ( button of buttons) {
+            button.style.boxShadow = '0px 0px 17px 4px rgba(255,255,255,0.67)';
+            button.style.margin = '6px';
+            button.style.transition = '.4s';
+        }
+        for ( letter of letters) {
+            letter.style.margin = '3px'
+            letter.style.transition = '.4s'
+        }
+    },100)
+}
+
+var review_btn = document.getElementById('review-word');
+review_btn.onclick = function(){
+    var info_text = document.getElementsByClassName('information-box')[0]
+    
+    if (info_text.style.display == 'none') {
+        info_text.style.display = 'block'
+    }else{
+        info_text.style.display = 'none'
+    }
+
 }
